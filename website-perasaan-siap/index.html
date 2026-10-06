@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#050509;color:#fff;font-family:Georgia,serif;
+  overflow-x:hidden;
+}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-2}
+body:before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 25%,rgba(130,90,255,.13),transparent 30%),
+    radial-gradient(circle at 80% 70%,rgba(255,80,130,.10),transparent 30%);
+}
+.music{
+  position:fixed;right:22px;top:22px;z-index:10;width:48px;height:48px;
+  border:1px solid rgba(255,255,255,.22);border-radius:50%;
+  background:rgba(255,255,255,.06);color:#fff;cursor:pointer;
+  backdrop-filter:blur(10px);font-size:18px;
+}
+section{
+  min-height:100vh;padding:100px 24px;display:flex;
+  align-items:center;justify-content:center;text-align:center;
+}
+.wrap{max-width:850px;width:100%}
+.kicker{
+  font-size:12px;letter-spacing:5px;text-transform:uppercase;
+  opacity:.45;margin-bottom:25px
+}
+h1{font-size:clamp(48px,9vw,92px);font-weight:400;line-height:1.02}
+h2{font-size:clamp(34px,6vw,64px);font-weight:400;line-height:1.15;margin-bottom:40px}
+p{font-size:19px;line-height:2;color:rgba(255,255,255,.70)}
+.typing{font-size:20px;opacity:.7;margin-top:28px;min-height:30px}
+.scroll{margin-top:75px;font-size:11px;letter-spacing:4px;opacity:.4;animation:float 2s infinite}
+@keyframes float{50%{transform:translateY(9px)}}
+.reveal{opacity:0;transform:translateY(55px);transition:1.2s ease}
+.reveal.show{opacity:1;transform:none}
+.quote{font-size:clamp(28px,5vw,54px);line-height:1.5;font-style:italic}
+.photo{
+  display:block;width:min(78vw,430px);aspect-ratio:3/4;
+  object-fit:cover;margin:50px auto 18px;border-radius:6px;
+  box-shadow:0 25px 80px rgba(0,0,0,.65);
+}
+.caption{font-size:13px;opacity:.4;font-style:italic}
+.heart{font-size:46px;margin-top:45px;animation:beat 1.7s infinite}
+@keyframes beat{15%{transform:scale(1.15)}30%{transform:scale(1)}}
+footer{padding:28px;text-align:center;font-size:11px;letter-spacing:2px;opacity:.25}
+#enter{
+  position:fixed;inset:0;z-index:20;background:#050509;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  transition:opacity 1s ease,visibility 1s ease;
+}
+#enter.hide{opacity:0;visibility:hidden;pointer-events:none}
+.enter-box{padding:30px}
+.enter-box p{font-size:14px;letter-spacing:3px;text-transform:uppercase;opacity:.45;margin-bottom:28px}
+.enter-btn{
+  padding:15px 32px;border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;background:transparent;color:#fff;
+  cursor:pointer;letter-spacing:3px;font-size:12px;
+  transition:.3s
+}
+.enter-btn:hover{background:#fff;color:#050509}
+@media(max-width:600px){p{font-size:17px}section{padding:90px 20px}}
+</style>
+</head>
+<body>
+
+<!--
+  PENTING:
+  Taruh file lagu "The 1975 - About You (1).mp3"
+  di folder yang sama dengan file index.html ini.
+-->
+<audio id="music" loop preload="auto">
+  <source src="The 1975 - About You (1).mp3" type="audio/mpeg">
+</audio>
+
+<div id="enter">
+  <div class="enter-box">
+    <p>I made something for you</p>
+    <button class="enter-btn" onclick="enterSite()">OPEN</button>
+  </div>
+</div>
+
+<button class="music" id="musicBtn" onclick="toggleMusic()" aria-label="Putar atau jeda musik">♫</button>
+<canvas id="stars"></canvas>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">A little something</div>
+    <h1>For Someone<br>Special.</h1>
+    <div class="typing" id="typing"></div>
+    <div class="scroll">SCROLL SLOWLY ↓</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">Chapter 01</div>
+    <h2>I don't know when it started.</h2>
+    <p>
+      Mungkin awalnya cuma hal kecil.<br>
+      Sebuah percakapan. Sebuah senyuman.<br>
+      Atau mungkin cuma cara kamu membuat
+      hari biasa terasa sedikit berbeda.
+      <br><br>
+      Tapi entah sejak kapan, namamu mulai
+      sering muncul di pikiranku.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">Chapter 02</div>
+    <h2>Then I realized...</h2>
+    <p>
+      Aku mulai memperhatikan hal-hal kecil tentangmu.
+      Mulai menunggu kesempatan untuk berbicara.
+      Mulai tersenyum hanya karena mengingat sesuatu tentangmu.
+      <br><br>
+      Dan akhirnya aku sadar...
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">The truth</div>
+    <div class="quote">“Maybe I didn't plan to fall for you.”</div>
+    <p style="margin-top:25px">But somehow, I did.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">A memory</div>
+    <h2>Somehow, you became special.</h2>
+    <img class="photo" src="foto.jpg" alt="Foto seseorang">
+    <div class="caption">Ganti foto.jpg dengan foto yang Han mau.</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">Things I never said</div>
+    <h2>There are things I've kept to myself.</h2>
+    <p>
+      Aku suka caramu tersenyum.<br><br>
+      Aku suka caramu berbicara.<br><br>
+      Aku suka hal-hal kecil yang mungkin bahkan
+      nggak pernah kamu sadari.
+      <br><br>
+      Dan aku suka bagaimana keberadaanmu
+      bisa membuat hari biasa terasa lebih berarti.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">One honest sentence</div>
+    <h2>So...</h2>
+    <p>
+      Setelah semua kata yang aku susun,
+      mungkin sebenarnya cuma ada satu hal
+      yang ingin aku sampaikan.
+    </p>
+    <div class="quote" style="margin-top:45px">“Aku suka sama kamu.”</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">One last thing</div>
+    <h2>Thank you for existing.</h2>
+    <p>
+      Aku nggak tahu apa yang akan kamu pikirkan
+      setelah membaca semua ini.
+      <br><br>
+      Aku juga nggak membuat halaman ini untuk
+      memaksamu memberikan jawaban.
+      <br><br>
+      Aku cuma ingin, untuk sekali ini,
+      kamu tahu apa yang sebenarnya ada
+      di dalam hati aku.
+      <br><br>
+      Ini adalah caraku mengatakan semuanya.
+    </p>
+    <div class="heart">♡</div>
+  </div>
+</section>
+
+<footer>made with feelings.</footer>
+
+<script>
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+const enter = document.getElementById("enter");
+
+function enterSite(){
+  music.play().then(()=>{
+    musicBtn.textContent="♫";
+  }).catch(()=>{});
+  enter.classList.add("hide");
+  startTyping();
+}
+
+function toggleMusic(){
+  if(music.paused){
+    music.play().then(()=>musicBtn.textContent="♫");
+  }else{
+    music.pause();
+    musicBtn.textContent="◼";
+  }
+}
+
+const text="There is something I've been wanting to tell you...";
+let i=0;
+let started=false;
+function startTyping(){
+  if(started)return;
+  started=true;
+  const el=document.getElementById("typing");
+  function type(){
+    if(i<text.length){
+      el.textContent+=text[i++];
+      setTimeout(type,55);
+    }
+  }
+  type();
+}
+
+const reveals=document.querySelectorAll(".reveal");
+function revealOnScroll(){
+  reveals.forEach(el=>{
+    if(el.getBoundingClientRect().top < innerHeight-110) el.classList.add("show");
+  });
+}
+addEventListener("scroll",revealOnScroll);
+revealOnScroll();
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+let stars=[];
+function resize(){
+  canvas.width=innerWidth; canvas.height=innerHeight;
+}
+function makeStars(){
+  stars=Array.from({length:140},()=>({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*1.5,
+    s:Math.random()*.35
+  }));
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(star=>{
+    ctx.beginPath();
+    ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,255,255,.6)";
+    ctx.fill();
+    star.y+=star.s;
+    if(star.y>canvas.height)star.y=0;
+  });
+  requestAnimationFrame(animate);
+}
+resize(); makeStars(); animate();
+addEventListener("resize",()=>{resize();makeStars()});
+</script>
+</body>
+</html>

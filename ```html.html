@@ -1,0 +1,840 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For Someone Special</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Georgia", serif;
+            background: #050509;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        #stars {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(130, 90, 255, .12), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 80, 130, .08), transparent 30%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .small-text {
+            font-size: 14px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: .55;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 90px);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 30px;
+        }
+
+        .typing {
+            font-size: clamp(18px, 3vw, 28px);
+            opacity: .75;
+            min-height: 40px;
+        }
+
+        .scroll {
+            margin-top: 80px;
+            font-size: 13px;
+            letter-spacing: 3px;
+            opacity: .45;
+            animation: floating 2s infinite ease-in-out;
+        }
+
+        @keyframes floating {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        section {
+            min-height: 100vh;
+            padding: 120px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 12px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: .4;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: clamp(35px, 6vw, 65px);
+            font-weight: 400;
+            margin-bottom: 45px;
+        }
+
+        .paragraph {
+            font-size: 20px;
+            line-height: 2;
+            color: rgba(255,255,255,.72);
+            max-width: 720px;
+            margin: auto;
+        }
+
+        /* =========================
+           PHOTO
+        ========================= */
+
+        .photo-wrapper {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .photo {
+            width: min(80vw, 430px);
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            border-radius: 5px;
+            filter: grayscale(15%);
+            box-shadow: 0 30px 80px rgba(0,0,0,.7);
+            transition: .7s;
+        }
+
+        .photo:hover {
+            transform: scale(1.03);
+            filter: grayscale(0%);
+        }
+
+        .caption {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: .45;
+            font-style: italic;
+        }
+
+        /* =========================
+           QUOTE
+        ========================= */
+
+        .quote {
+            font-size: clamp(28px, 5vw, 55px);
+            line-height: 1.5;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .author {
+            margin-top: 30px;
+            opacity: .4;
+        }
+
+        /* =========================
+           REVEAL
+        ========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: 1.2s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           FINAL
+        ========================= */
+
+        .final {
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .final h2 {
+            font-size: clamp(40px, 7vw, 75px);
+            font-weight: 400;
+            margin-bottom: 35px;
+        }
+
+        .final p {
+            max-width: 650px;
+            margin: auto;
+            font-size: 19px;
+            line-height: 2;
+            color: rgba(255,255,255,.65);
+        }
+
+        .heart {
+            font-size: 45px;
+            margin-top: 50px;
+            animation: heartbeat 1.8s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%,100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.15);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            font-size: 12px;
+            opacity: .25;
+            letter-spacing: 2px;
+        }
+
+        /* =========================
+           MUSIC BUTTON
+        ========================= */
+
+        .music-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 20;
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.2);
+
+            background: rgba(255,255,255,.05);
+            color: white;
+
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn:hover {
+            background: rgba(255,255,255,.15);
+        }
+
+        @media(max-width:600px) {
+
+            .paragraph {
+                font-size: 17px;
+            }
+
+            section {
+                padding: 100px 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND MUSIC -->
+    <!-- Ganti music.mp3 dengan file musik Han -->
+    <audio id="music" loop>
+        <source src="c:\Users\rafiq\Downloads\The 1975 - About You (1).mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-btn" onclick="toggleMusic()">♫</button>
+
+    <canvas id="stars"></canvas>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="small-text">
+                A little something for you
+            </div>
+
+            <h1>
+                For Someone<br>
+                Special.
+            </h1>
+
+            <div class="typing" id="typing"></div>
+
+            <div class="scroll">
+                SCROLL SLOWLY ↓
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 1
+    ========================== -->
+
+    <section>
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                Chapter 01
+            </div>
+
+            <h2 class="section-title">
+                I don't know when it started.
+            </h2>
+
+            <p class="paragraph">
+
+                Mungkin awalnya cuma hal kecil.
+                Sebuah percakapan.
+                Sebuah senyuman.
+                Atau mungkin cuma cara kamu
+                melihat dunia.
+
+                <br><br>
+
+                Tapi entah kenapa,
+                semakin lama aku mengenalmu,
+                semakin sering namamu muncul
+                di pikiranku.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 2
+    ========================== -->
+
+    <section>
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                Chapter 02
+            </div>
+
+            <h2 class="section-title">
+                Then I realized...
+            </h2>
+
+            <p class="paragraph">
+
+                Ada perasaan yang awalnya
+                aku anggap biasa.
+
+                <br><br>
+
+                Sampai akhirnya aku sadar,
+                aku mulai menunggu pesanmu.
+
+                Mulai memperhatikan hal-hal kecil
+                tentangmu.
+
+                Mulai tersenyum hanya karena
+                mengingat sesuatu tentangmu.
+
+                <br><br>
+
+                Dan mungkin...
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 3
+    ========================== -->
+
+    <section>
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                Chapter 03
+            </div>
+
+            <h2 class="quote">
+
+                "Maybe I didn't plan
+                to fall for you."
+
+            </h2>
+
+            <div class="author">
+                — but somehow, I did.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PHOTO
+    ========================== -->
+
+    <section>
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                A memory
+            </div>
+
+            <h2 class="section-title">
+                And somehow,
+                you became special.
+            </h2>
+
+            <!-- GANTI foto.jpg dengan foto yang Han mau -->
+            <div class="photo-wrapper">
+
+                <img
+                    src="foto.jpg"
+                    class="photo"
+                    alt="Someone special"
+                >
+
+            </div>
+
+            <div class="caption">
+                One of the reasons this page exists.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION 4
+    ========================== -->
+
+    <section>
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                Chapter 04
+            </div>
+
+            <h2 class="section-title">
+                Things I never said.
+            </h2>
+
+            <p class="paragraph">
+
+                Aku suka caramu tersenyum.
+
+                <br><br>
+
+                Aku suka caramu berbicara.
+
+                <br><br>
+
+                Aku suka hal-hal kecil
+                yang mungkin bahkan
+                nggak pernah kamu sadari.
+
+                <br><br>
+
+                Dan yang paling aneh...
+
+                <br><br>
+
+                aku suka bagaimana
+                keberadaanmu bisa membuat
+                hari biasa terasa sedikit
+                lebih berarti.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONFESSION
+    ========================== -->
+
+    <section>
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                The truth
+            </div>
+
+            <h2 class="section-title">
+                So...
+            </h2>
+
+            <p class="paragraph">
+
+                Setelah sekian banyak kata
+                yang aku susun...
+
+                <br><br>
+
+                mungkin sebenarnya
+                cuma ada satu kalimat
+                yang ingin aku sampaikan.
+
+            </p>
+
+            <br><br>
+
+            <h2 class="quote">
+                "Aku suka sama kamu."
+            </h2>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL
+    ========================== -->
+
+    <section class="final">
+
+        <div class="container reveal">
+
+            <div class="section-label">
+                One last thing
+            </div>
+
+            <h2>
+                Thank you
+                for existing.
+            </h2>
+
+            <p>
+
+                Aku nggak tahu setelah kamu membaca
+                semua ini, apa yang akan kamu pikirkan.
+
+                <br><br>
+
+                Aku juga nggak membuat halaman ini
+                untuk memaksamu memberikan jawaban.
+
+                <br><br>
+
+                Aku cuma ingin,
+                untuk sekali ini,
+                kamu tahu apa yang sebenarnya
+                ada di dalam hati aku.
+
+                <br><br>
+
+                Karena terkadang,
+                ada perasaan yang terlalu lama
+                disimpan hanya karena takut
+                untuk mengatakannya.
+
+                <br><br>
+
+                Jadi...
+
+                <br><br>
+
+                ini adalah caraku
+                mengatakan semuanya.
+
+            </p>
+
+            <div class="heart">
+                ♡
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        made with feelings.
+    </footer>
+
+
+    <script>
+
+        /* =========================
+           TYPING EFFECT
+        ========================== */
+
+        const text =
+            "There is something I've been wanting to tell you...";
+
+        const typingElement =
+            document.getElementById("typing");
+
+        let index = 0;
+
+        function typingEffect() {
+
+            if (index < text.length) {
+
+                typingElement.innerHTML += text.charAt(index);
+
+                index++;
+
+                setTimeout(typingEffect, 55);
+
+            }
+
+        }
+
+        typingEffect();
+
+
+        /* =========================
+           SCROLL REVEAL
+        ========================== */
+
+        const reveals =
+            document.querySelectorAll(".reveal");
+
+        function revealOnScroll() {
+
+            reveals.forEach(element => {
+
+                const windowHeight =
+                    window.innerHeight;
+
+                const elementTop =
+                    element.getBoundingClientRect().top;
+
+                if (elementTop < windowHeight - 120) {
+
+                    element.classList.add("active");
+
+                }
+
+            });
+
+        }
+
+        window.addEventListener(
+            "scroll",
+            revealOnScroll
+        );
+
+        revealOnScroll();
+
+
+        /* =========================
+           MUSIC
+        ========================== */
+
+        const music =
+            document.getElementById("music");
+
+        function toggleMusic() {
+
+            if (music.paused) {
+
+                music.play();
+
+            } else {
+
+                music.pause();
+
+            }
+
+        }
+
+
+        /* =========================
+           STAR PARTICLES
+        ========================== */
+
+        const canvas =
+            document.getElementById("stars");
+
+        const ctx =
+            canvas.getContext("2d");
+
+        let stars = [];
+
+        function resizeCanvas() {
+
+            canvas.width =
+                window.innerWidth;
+
+            canvas.height =
+                window.innerHeight;
+
+        }
+
+        resizeCanvas();
+
+        window.addEventListener(
+            "resize",
+            resizeCanvas
+        );
+
+
+        function createStars() {
+
+            stars = [];
+
+            for (let i = 0; i < 130; i++) {
+
+                stars.push({
+
+                    x: Math.random() *
+                        canvas.width,
+
+                    y: Math.random() *
+                        canvas.height,
+
+                    radius:
+                        Math.random() * 1.5,
+
+                    speed:
+                        Math.random() * .3
+
+                });
+
+            }
+
+        }
+
+        createStars();
+
+
+        function animateStars() {
+
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            stars.forEach(star => {
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    star.x,
+                    star.y,
+                    star.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle =
+                    "rgba(255,255,255,.6)";
+
+                ctx.fill();
+
+                star.y += star.speed;
+
+                if (
+                    star.y >
+                    canvas.height
+                ) {
+
+                    star.y = 0;
+
+                }
+
+            });
+
+            requestAnimationFrame(
+                animateStars
+            );
+
+        }
+
+        animateStars();
+
+    </script>
+
+</body>
+</html>
+```
